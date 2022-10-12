@@ -201,14 +201,18 @@ class ProductSuggestions extends React.Component {
         this.credentials = get(preferences, 'appbaseSettings.credentials');
         this.url = get(preferences, 'appbaseSettings.url');
         this.userId = get(this.preferences, 'appbaseSettings.userId', '');
-        this.logoSettings = get(preferences, 'globalSettings.meta.branding', {});
+        this.logoSettings = get(
+            preferences,
+            'globalSettings.meta.branding',
+            {},
+        );
     }
 
-   componentDidMount() {
-        if(this.userId) {
+    componentDidMount() {
+        if (this.userId) {
             userIdObj = {
-                userId: this.userId
-            }
+                userId: this.userId,
+            };
         }
         // fetch popular products
         this.fetchPopularProducts();
@@ -289,8 +293,8 @@ class ProductSuggestions extends React.Component {
                 if (this.recommendation.dataField) {
                     let status;
                     this.setState({
-                        loading: true
-                    })
+                        loading: true,
+                    });
                     fetch(`${this.url}/${this.index}/_search`, {
                         method: 'POST',
                         headers: this.headers,
@@ -419,14 +423,14 @@ class ProductSuggestions extends React.Component {
                                     });
                             } else {
                                 this.setState({
-                                    loading: false
+                                    loading: false,
                                 });
                             }
                         })
                         .catch((e) => {
                             this.setState({
                                 error: e,
-                                loading: false
+                                loading: false,
                             });
                             console.warn(e);
                         });
@@ -448,8 +452,8 @@ class ProductSuggestions extends React.Component {
                         _id: docId,
                     }));
                 this.setState({
-                    loading: true
-                })
+                    loading: true,
+                });
                 this.getProductsByDocIds(docIdsPayload);
             }
         }
@@ -463,8 +467,8 @@ class ProductSuggestions extends React.Component {
             const { headers } = this;
             let status;
             this.setState({
-                loading: true
-            })
+                loading: true,
+            });
             fetch(
                 `${this.url}/_analytics/${this.index}/popular-results?size=${this.recommendation.maxProducts}`,
                 {
@@ -479,7 +483,7 @@ class ProductSuggestions extends React.Component {
                     if (status > 300) {
                         this.setState({
                             error: response,
-                            loading: false
+                            loading: false,
                         });
                         return;
                     }
@@ -495,7 +499,7 @@ class ProductSuggestions extends React.Component {
                 .catch((e) => {
                     this.setState({
                         error: e,
-                        loading: false
+                        loading: false,
                     });
                     console.warn(e);
                 });
@@ -650,10 +654,13 @@ class ProductSuggestions extends React.Component {
 
         return (
             <div>
-                {Object.keys(this.logoSettings).length && this.logoSettings.logoUrl ? (
+                {Object.keys(this.logoSettings).length &&
+                this.logoSettings.logoUrl ? (
                     <div style={{ height: 50 }}>
                         <img
-                            src={`${this.logoSettings.logoUrl}/tr:w-${this.logoSettings.logoWidth*2}`}
+                            src={`${this.logoSettings.logoUrl}/tr:w-${
+                                this.logoSettings.logoWidth * 2
+                            }`}
                             alt="logo-url"
                             style={{
                                 width: `${this.logoSettings.logoWidth}px`,
@@ -663,7 +670,7 @@ class ProductSuggestions extends React.Component {
                             }}
                         />
                     </div>
-                ): null}
+                ) : null}
                 <div style={{ margin: '25px auto', position: 'relative' }}>
                     <div css={titleCls}>{this.recommendation.title}</div>
                     <div css={main}>
@@ -749,7 +756,10 @@ class ProductSuggestions extends React.Component {
                                                 triggerAnalytics: triggerClickAnalytics,
                                             }}
                                             index={_id}
-                                            type={this.recommendation.type || 'other'}
+                                            type={
+                                                this.recommendation.type ||
+                                                'other'
+                                            }
                                         />
                                     ),
                                 )}
@@ -810,7 +820,7 @@ class ProductSuggestions extends React.Component {
                     enableAppbase
                     appbaseConfig={{
                         recordAnalytics: true,
-                        ...userIdObj
+                        ...userIdObj,
                     }}
                 >
                     <Global
@@ -850,13 +860,13 @@ class ProductSuggestions extends React.Component {
                                     data,
                                     triggerClickAnalytics,
                                     error: errorDetails,
-                                    loading: fetching
+                                    loading: fetching,
                                 }) => {
                                     return this.renderResults({
                                         data,
                                         error: errorDetails,
                                         triggerClickAnalytics,
-                                        loading: fetching
+                                        loading: fetching,
                                     });
                                 }}
                                 infiniteScroll={false}

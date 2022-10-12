@@ -1,7 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Helmet } from 'react-helmet';
-import SearchPlugin from './components/SearchPlugin';
 import ProductSuggestions from './components/ProductSuggestions';
 import 'antd/dist/antd.css';
 import './index.css';
@@ -24,7 +23,7 @@ const getPropsById = (id) => {
     return null;
 };
 
-const renderById = (id, mode) => {
+const renderById = (id) => {
     const container = isIdAvailble(id);
     if (container) {
         ReactDOM.render(

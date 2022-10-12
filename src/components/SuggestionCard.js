@@ -1,16 +1,121 @@
 /** @jsxRuntime classic */
 /** @jsx jsx */
+import { css, jsx } from '@emotion/core';
 import { useEffect, useState } from 'react';
-import { jsx } from '@emotion/core';
 import { string } from 'prop-types';
 import strip from 'striptags';
 import Truncate from 'react-truncate';
 import { Card, Button, Icon } from 'antd';
 import get from 'lodash.get';
-import { cardStyles, cardTitleStyles } from './Search';
-import { CtaActions, getSearchPreferences } from '../utils';
+import { CtaActions, getRecommendationsPreferences } from '../utils';
+import { mediaMax } from '../utils/media';
 
 const { Meta } = Card;
+
+const cardStyles = ({ textColor, titleColor, primaryColor }) => css`
+    position: relative;
+    overflow: hidden;
+    max-width: 250px;
+    height: 100%;
+    .card-image-container {
+        width: 250px;
+        height: 250px;
+        ${mediaMax.medium} {
+            height: 100%;
+            width: 100%;
+        }
+    }
+    .product-button {
+        top: -50%;
+        position: absolute;
+        background: ${primaryColor} !important;
+        border: 0;
+        box-shadow: 0 2px 4px ${titleColor}33;
+        left: 50%;
+        transform: translateX(-50%);
+        transition: all ease 0.2s;
+    }
+
+    ::before {
+        content: '';
+        width: 100%;
+        height: 0vh;
+        background: ${primaryColor}00 !important;
+        position: absolute;
+        top: 0;
+        left: 0;
+        display: block;
+        transition: all ease 0.4s;
+    }
+
+    .ant-card-cover {
+        height: 250px;
+        ${mediaMax.medium} {
+            height: 200px;
+        }
+    }
+    .ant-card-body {
+        padding: 15px 10px;
+    }
+    ${mediaMax.small} {
+        .ant-card-body {
+            padding: 10px 5px;
+        }
+    }
+
+    .ant-card-cover img {
+        object-fit: cover;
+        height: 100%;
+        width: 100%;
+    }
+
+    .ant-card-meta-title {
+        color: ${titleColor};
+        white-space: unset;
+    }
+
+    .ant-card-meta-title h3 {
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    .ant-card-meta-description {
+        color: ${textColor};
+        ${mediaMax.small} {
+            font-size: 0.7rem;
+        }
+    }
+
+    &:hover {
+        .product-button {
+            top: 50%;
+        }
+        ::before {
+            width: 100%;
+            height: 100%;
+            background: ${primaryColor}1a !important;
+        }
+    }
+
+    @media (max-width: 768px) {
+        .ant-card-cover img {
+            object-fit: cover;
+        }
+    }
+`;
+
+const cardTitleStyles = ({ titleColor, primaryColor }) => css`
+    margin: 0;
+    padding: 0;
+    color: ${titleColor};
+    ${mediaMax.small} {
+        font-size: 0.9rem;
+    }
+    mark {
+        color: ${titleColor};
+        background-color: ${primaryColor}4d};
+    }
+`;
 
 const SuggestionCard = ({
     isPreview,
@@ -41,7 +146,7 @@ const SuggestionCard = ({
     }, []);
 
     const shouldShowCtaAction = ctaAction !== CtaActions.NO_BUTTON;
-    const preferences = getSearchPreferences();
+    const preferences = getRecommendationsPreferences();
     const redirectUrlText = get(
         preferences,
         'searchSettings.redirectUrlText',
@@ -82,6 +187,7 @@ const SuggestionCard = ({
                                     width="100%"
                                     alt={title}
                                     onError={(event) => {
+                                        // eslint-disable-next-line
                                         event.target.src =
                                             'https://www.houseoftara.com/shop/wp-content/uploads/2019/05/placeholder.jpg'; // eslint-disable-line
                                     }}
