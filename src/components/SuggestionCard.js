@@ -210,6 +210,7 @@ const SuggestionCard = ({
                     <Meta
                         title={
                             <h3
+                                // eslint-disable-next-line
                                 css={cardTitleStyles(theme.colors)}
                                 style={
                                     themeType === 'minimal'

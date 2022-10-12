@@ -623,6 +623,7 @@ class ProductSuggestions extends React.Component {
         if (!data.length) {
             if (isPreview && !loading) {
                 return (
+                    // eslint-disable-next-line
                     <div css={noRecommendation}>
                         <h3>No recommendations found</h3>
                         <p>
@@ -672,7 +673,9 @@ class ProductSuggestions extends React.Component {
                     </div>
                 ) : null}
                 <div style={{ margin: '25px auto', position: 'relative' }}>
+                    {/* eslint-disable-next-line */}
                     <div css={titleCls}>{this.recommendation.title}</div>
+                    {/* eslint-disable-next-line */}
                     <div css={main}>
                         <Button
                             disabled={currentPage === 1}
@@ -682,6 +685,7 @@ class ProductSuggestions extends React.Component {
                             <Icon css={icon} type="left" />
                         </Button>
                         <div
+                            // eslint-disable-next-line
                             css={css({
                                 margin: '10px 50px',
                                 [mediaMax.small]: {

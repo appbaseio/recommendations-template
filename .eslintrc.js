@@ -22,7 +22,7 @@ module.exports = {
         'no-underscore-dangle': 0,
 
         'prettier/prettier': 'error',
-
+        'react/no-unknown-property': ['error', { ignore: ['css'] }],
         'react/jsx-indent': 0,
         'react/jsx-indent-props': 0,
         'react/jsx-filename-extension': 0,
@@ -34,6 +34,6 @@ module.exports = {
         'react/jsx-fragments': 0,
         'prettier/prettier': 0,
         'react/no-danger': 0,
-        'no-console': 0
+        'no-console': 0,
     },
 };
