@@ -221,7 +221,7 @@ const SuggestionCard = ({
                                 }
                             >
                                 <Truncate lines={1} ellipsis={<span>...</span>}>
-                                    {strip(title.toString())}
+                                    {strip((title || '').toString())}
                                 </Truncate>
                             </h3>
                         }
@@ -234,7 +234,9 @@ const SuggestionCard = ({
                                               lines={2}
                                               ellipsis={<span>...</span>}
                                           >
-                                              {strip(body_html.toString())}
+                                              {strip(
+                                                  (body_html || '').toString(),
+                                              )}
                                           </Truncate>
                                       )
                                     : undefined}
