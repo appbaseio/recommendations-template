@@ -290,7 +290,7 @@ class ProductSuggestions extends React.Component {
                     }
                 }
             }
-            console.log(this.recommendation);
+
             if (fieldName && fieldValue) {
                 // Fetch value for the field defined in preferences
                 if (this.recommendation.dataField) {
@@ -406,7 +406,6 @@ class ProductSuggestions extends React.Component {
                                             return;
                                         }
                                         if (res && res.results) {
-                                            console.log(res.results);
                                             this.setState({
                                                 products: res.results.hits.hits
                                                     .filter(
