@@ -327,14 +327,12 @@ class ProductSuggestions extends React.Component {
                                 });
                                 return;
                             }
-                            console.log({ response });
                             const value = get(
                                 response,
                                 `hits.hits[0]._source[${getFieldWithoutKeyword(
                                     this.recommendation.dataField,
                                 )}]`,
                             );
-                            console.log({ value });
                             const documentId = get(
                                 response,
                                 `hits.hits[0]._id`,
@@ -474,7 +472,7 @@ class ProductSuggestions extends React.Component {
                 loading: true,
             });
             fetch(
-                `${this.url}/_analytics/${this.index}/popular-results?size=${this.recommendation.maxProducts}`,
+                `${this.url}/_analytics/${this.index}/popular-results?size=${this.recommendation.maxProducts}&show_global=true`,
                 {
                     headers,
                 },
