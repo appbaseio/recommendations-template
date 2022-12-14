@@ -290,6 +290,7 @@ class ProductSuggestions extends React.Component {
                     }
                 }
             }
+
             if (fieldName && fieldValue) {
                 // Fetch value for the field defined in preferences
                 if (this.recommendation.dataField) {
@@ -357,22 +358,6 @@ class ProductSuggestions extends React.Component {
                                                     execute: false,
                                                 },
                                                 {
-                                                    id: 'exclude_product',
-                                                    dataField: ['_id'],
-                                                    execute: false,
-                                                    customQuery: {
-                                                        query: {
-                                                            bool: {
-                                                                must_not: {
-                                                                    term: {
-                                                                        _id: documentId,
-                                                                    },
-                                                                },
-                                                            },
-                                                        },
-                                                    },
-                                                },
-                                                {
                                                     id: 'results',
                                                     size: this.recommendation
                                                         .maxProducts,
@@ -405,13 +390,17 @@ class ProductSuggestions extends React.Component {
                                         }
                                         if (res && res.results) {
                                             this.setState({
-                                                products: res.results.hits.hits.map(
-                                                    (product) => ({
+                                                products: res.results.hits.hits
+                                                    .filter(
+                                                        (i) =>
+                                                            i._id !==
+                                                            documentId,
+                                                    )
+                                                    .map((product) => ({
                                                         ...product,
                                                         ...product._source,
                                                         _source: {},
-                                                    }),
-                                                ),
+                                                    })),
                                                 loading: false,
                                             });
                                         }
