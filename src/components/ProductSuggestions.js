@@ -32,7 +32,7 @@ const buttonLeft = css`
     ${mediaMax.small} {
         padding: 0;
     }
-    padding: 0 8px;
+    padding: 0 5px;
     margin-left: 10px;
     margin-right: 10px;
     z-index: 10;
@@ -41,6 +41,7 @@ const buttonLeft = css`
     left:0;
     margin-top:auto;
     margin-bottom:auto;
+    height: 70px;
 }`;
 
 const noRecommendation = css`
@@ -57,13 +58,14 @@ const buttonRight = css`
     }
     margin-left: 10px;
     margin-right: 10px;
-    padding: 0 8px;
+    padding: 0 5px;
     z-index: 10;
     top:0;
     right:0;
     bottom:0;
     margin-top:auto;
     margin-bottom:auto;
+    height: 70px;
 }`;
 const titleCls = css({
     textAlign: 'center',
@@ -84,7 +86,7 @@ const main = css`
     .ant-btn {
         border: none !important;
         box-shadow: 1px 1px 5px 0px rgb(0 0 0 / 35%);
-        background: #e9e9e9 !important;
+        background: #f5f2f2 !important;
         position: absolute;
     }
 `;
@@ -470,7 +472,7 @@ class ProductSuggestions extends React.Component {
                 loading: true,
             });
             fetch(
-                `${this.url}/_analytics/${this.index}/popular-results?size=${this.recommendation.maxProducts}`,
+                `${this.url}/_analytics/${this.index}/popular-results?size=${this.recommendation.maxProducts}&show_global=true`,
                 {
                     headers,
                 },
