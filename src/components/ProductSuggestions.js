@@ -357,23 +357,6 @@ class ProductSuggestions extends React.Component {
                                                     value,
                                                     execute: false,
                                                 },
-                                                // {
-                                                //     id: 'exclude_product',
-                                                //     dataField: ['_id'],
-                                                //     execute: false,
-                                                //     customQuery: {
-                                                //         query: {
-                                                //             bool: {
-                                                //                 must_not: {
-                                                //                     term: {
-                                                //                         _id: documentId,
-                                                // Changes: documentId
-                                                //                     },
-                                                //                 },
-                                                //             },
-                                                //         },
-                                                //     },
-                                                // },
                                                 {
                                                     id: 'results',
                                                     size: this.recommendation
