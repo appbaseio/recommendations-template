@@ -327,12 +327,14 @@ class ProductSuggestions extends React.Component {
                                 });
                                 return;
                             }
+                            console.log({ response });
                             const value = get(
                                 response,
                                 `hits.hits[0]._source[${getFieldWithoutKeyword(
                                     this.recommendation.dataField,
                                 )}]`,
                             );
+                            console.log({ value });
                             const documentId = get(
                                 response,
                                 `hits.hits[0]._id`,
