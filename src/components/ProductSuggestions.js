@@ -32,7 +32,7 @@ const buttonLeft = css`
     ${mediaMax.small} {
         padding: 0;
     }
-    padding: 0 5px;
+    padding: 0 5px !important;
     margin-left: 10px;
     margin-right: 10px;
     z-index: 10;
@@ -41,7 +41,7 @@ const buttonLeft = css`
     left:0;
     margin-top:auto;
     margin-bottom:auto;
-    height: 70px;
+    height: 70px !important;
 }`;
 
 const noRecommendation = css`
@@ -58,14 +58,14 @@ const buttonRight = css`
     }
     margin-left: 10px;
     margin-right: 10px;
-    padding: 0 5px;
+    padding: 0 5px !important;
     z-index: 10;
     top:0;
     right:0;
     bottom:0;
     margin-top:auto;
     margin-bottom:auto;
-    height: 70px;
+    height: 70px !important;
 }`;
 const titleCls = css({
     textAlign: 'center',
