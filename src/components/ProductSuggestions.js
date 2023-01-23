@@ -439,7 +439,7 @@ class ProductSuggestions extends React.Component {
                 const docIdsPayload = docIds
                     .slice(0, this.recommendation.maxProducts)
                     .map((docId) => ({
-                        _index: this.index,
+                        // _index: this.index,
                         _id: docId,
                     }));
                 this.setState({
@@ -480,7 +480,7 @@ class ProductSuggestions extends React.Component {
                     }
                     if (response.popular_results) {
                         const docIds = response.popular_results.map((item) => ({
-                            _index: item.index,
+                            // _index: item.index,
                             _id: item.key,
                         }));
                         // fetch products by docIds
