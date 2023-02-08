@@ -773,6 +773,7 @@ class ProductSuggestions extends React.Component {
                                 )}
                             </Slider>
                         </div>
+                        {console.log(currentPage * maxSize >= data.length,currentPage ,maxSize , data.length)}
                         <Button
                             disabled={currentPage * maxSize >= data.length}
                             css={buttonRight}
