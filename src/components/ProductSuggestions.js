@@ -349,7 +349,7 @@ class ProductSuggestions extends React.Component {
                             );
                             const documentId = get(
                                 response,
-                                `hits.hits[0]._id`,
+                                `result.hits.hits[0]._id`,
                             );
                             if (value) {
                                 // fetch products
@@ -580,13 +580,12 @@ class ProductSuggestions extends React.Component {
         });
     };
 
-    nextPage = () => {    console.log('nextPage', this.state.currentPage);
+    nextPage = () => {
         this.setState(
             (prevState) => ({
                 currentPage: prevState.currentPage + 1,
             }),
             () => {
-                console.log('nextPage', this.state.currentPage);
                 this.slick.slickNext();
             },
         );
@@ -612,8 +611,8 @@ class ProductSuggestions extends React.Component {
         return fontFamily ? { fontFamily } : {};
     };
 
-    renderResults = ({ data, loading, error, triggerClickAnalytics, maxSize, currentPage }) => {
-
+    renderResults = ({ data, loading, error, triggerClickAnalytics }) => {
+        const { maxSize, currentPage } = this.state;
         const { isPreview } = this.props;
         const settings = {
             dots: false,
@@ -625,7 +624,6 @@ class ProductSuggestions extends React.Component {
             slidesToScroll: maxSize,
             initialSlide: 0,
         };
-        console.log({maxSize, currentPage});
         if (!data.length) {
             if (isPreview && !loading) {
                 return (
@@ -789,7 +787,7 @@ class ProductSuggestions extends React.Component {
     };
 
     render() {
-        const { maxSize, products, error, loading, currentPage } = this.state;
+        const { maxSize, products, error, loading } = this.state;
         if (!this.recommendation || !maxSize) {
             return null;
         }
@@ -844,8 +842,6 @@ class ProductSuggestions extends React.Component {
                             triggerClickAnalytics: () => null,
                             error,
                             loading,
-                            maxSize,
-                            currentPage,
                         })
                     ) : (
                         <React.Fragment>
@@ -879,8 +875,6 @@ class ProductSuggestions extends React.Component {
                                         error: errorDetails,
                                         triggerClickAnalytics,
                                         loading: fetching,
-                                        maxSize,
-                                        currentPage,
                                     });
                                 }}
                                 infiniteScroll={false}
