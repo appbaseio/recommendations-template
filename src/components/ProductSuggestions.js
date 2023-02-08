@@ -586,6 +586,7 @@ class ProductSuggestions extends React.Component {
                 currentPage: prevState.currentPage + 1,
             }),
             () => {
+                console.log('nextPage', this.state.currentPage);
                 this.slick.slickNext();
             },
         );
@@ -611,8 +612,8 @@ class ProductSuggestions extends React.Component {
         return fontFamily ? { fontFamily } : {};
     };
 
-    renderResults = ({ data, loading, error, triggerClickAnalytics }) => {
-        const { maxSize, currentPage } = this.state;
+    renderResults = ({ data, loading, error, triggerClickAnalytics, maxSize, currentPage }) => {
+
         const { isPreview } = this.props;
         const settings = {
             dots: false,
@@ -788,7 +789,7 @@ class ProductSuggestions extends React.Component {
     };
 
     render() {
-        const { maxSize, products, error, loading } = this.state;
+        const { maxSize, products, error, loading, currentPage } = this.state;
         if (!this.recommendation || !maxSize) {
             return null;
         }
@@ -843,6 +844,8 @@ class ProductSuggestions extends React.Component {
                             triggerClickAnalytics: () => null,
                             error,
                             loading,
+                            maxSize,
+                            currentPage,
                         })
                     ) : (
                         <React.Fragment>
@@ -876,6 +879,8 @@ class ProductSuggestions extends React.Component {
                                         error: errorDetails,
                                         triggerClickAnalytics,
                                         loading: fetching,
+                                        maxSize,
+                                        currentPage,
                                     });
                                 }}
                                 infiniteScroll={false}
