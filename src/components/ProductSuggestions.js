@@ -580,7 +580,7 @@ class ProductSuggestions extends React.Component {
         });
     };
 
-    nextPage = () => {
+    nextPage = () => {    console.log('nextPage', this.state.currentPage);
         this.setState(
             (prevState) => ({
                 currentPage: prevState.currentPage + 1,
