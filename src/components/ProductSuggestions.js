@@ -581,6 +581,8 @@ class ProductSuggestions extends React.Component {
     };
 
     nextPage = () => {
+       try {
+         console.log('callinug nextPAge');
         this.setState(
             (prevState) => ({
                 currentPage: prevState.currentPage + 1,
@@ -589,6 +591,9 @@ class ProductSuggestions extends React.Component {
                 this.slick.slickNext();
             },
         );
+       } catch (error) {
+        console.log('sdfdsds',error)
+       }
     };
 
     prevPage = () => {
