@@ -298,22 +298,35 @@ class ProductSuggestions extends React.Component {
                     this.setState({
                         loading: true,
                     });
-                    fetch(`${this.url}/${this.index}/_search`, {
+                    const query = {
+                        "query": [{
+                            "id": "term",
+                            "type": "term",
+                            "dataField": fieldName,
+                            "value": fieldValue,
+                            "execute": false
+                        }, {
+                            "id": "result",
+                            "react": {
+                                "and": "term"
+                            },
+                            "size": 1,
+                            "includeFields": [
+                                getFieldWithoutKeyword(
+                                        this.recommendation.dataField,
+                                    ),
+                            ]
+                        }],
+                        "settings": {
+                            "recordAnalytics": false,
+                            "enableQueryRules": true
+                        }
+                    };
+                    fetch(`${this.url}/${this.index}/_reactivesearch`, {
                         method: 'POST',
                         headers: this.headers,
                         body: JSON.stringify({
-                            query: {
-                                term: {
-                                    [fieldName]: fieldValue,
-                                },
-                            },
-                            _source: {
-                                include: [
-                                    getFieldWithoutKeyword(
-                                        this.recommendation.dataField,
-                                    ),
-                                ],
-                            },
+                            ...query
                         }),
                     })
                         .then((res) => {
@@ -330,7 +343,7 @@ class ProductSuggestions extends React.Component {
                             }
                             const value = get(
                                 response,
-                                `hits.hits[0]._source[${getFieldWithoutKeyword(
+                                `result.hits.hits[0]._source[${getFieldWithoutKeyword(
                                     this.recommendation.dataField,
                                 )}]`,
                             );
