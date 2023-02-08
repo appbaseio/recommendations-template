@@ -299,34 +299,37 @@ class ProductSuggestions extends React.Component {
                         loading: true,
                     });
                     const query = {
-                        "query": [{
-                            "id": "term",
-                            "type": "term",
-                            "dataField": fieldName,
-                            "value": fieldValue,
-                            "execute": false
-                        }, {
-                            "id": "result",
-                            "react": {
-                                "and": "term"
+                        query: [
+                            {
+                                id: 'term',
+                                type: 'term',
+                                dataField: fieldName,
+                                value: fieldValue,
+                                execute: false,
                             },
-                            "size": 1,
-                            "includeFields": [
-                                getFieldWithoutKeyword(
+                            {
+                                id: 'result',
+                                react: {
+                                    and: 'term',
+                                },
+                                size: 1,
+                                includeFields: [
+                                    getFieldWithoutKeyword(
                                         this.recommendation.dataField,
                                     ),
-                            ]
-                        }],
-                        "settings": {
-                            "recordAnalytics": false,
-                            "enableQueryRules": true
-                        }
+                                ],
+                            },
+                        ],
+                        settings: {
+                            recordAnalytics: false,
+                            enableQueryRules: true,
+                        },
                     };
                     fetch(`${this.url}/${this.index}/_reactivesearch`, {
                         method: 'POST',
                         headers: this.headers,
                         body: JSON.stringify({
-                            ...query
+                            ...query,
                         }),
                     })
                         .then((res) => {
@@ -581,19 +584,19 @@ class ProductSuggestions extends React.Component {
     };
 
     nextPage = () => {
-       try {
-         console.log('callinug nextPAge');
-        this.setState(
-            (prevState) => ({
-                currentPage: prevState.currentPage + 1,
-            }),
-            () => {
-                this.slick.slickNext();
-            },
-        );
-       } catch (error) {
-        console.log('sdfdsds',error)
-       }
+        try {
+            console.log('callinug nextPAge');
+            this.setState(
+                (prevState) => ({
+                    currentPage: prevState.currentPage + 1,
+                }),
+                () => {
+                    this.slick.slickNext();
+                },
+            );
+        } catch (error) {
+            console.log('sdfdsds', error);
+        }
     };
 
     prevPage = () => {
@@ -778,8 +781,15 @@ class ProductSuggestions extends React.Component {
                                 )}
                             </Slider>
                         </div>
-                        {console.log(currentPage * maxSize >= data.length,currentPage ,maxSize , data.length)}
-                        <button   onClick={this.nextPage}>test</button>
+                        {console.log(
+                            currentPage * maxSize >= data.length,
+                            currentPage,
+                            maxSize,
+                            data.length,
+                        )}
+                        <button type="button" onClick={this.nextPage}>
+                            test
+                        </button>
                         <Button
                             disabled={currentPage * maxSize >= data.length}
                             css={buttonRight}
