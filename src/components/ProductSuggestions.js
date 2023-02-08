@@ -624,6 +624,7 @@ class ProductSuggestions extends React.Component {
             slidesToScroll: maxSize,
             initialSlide: 0,
         };
+        console.log({maxSize, currentPage});
         if (!data.length) {
             if (isPreview && !loading) {
                 return (
